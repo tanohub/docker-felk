@@ -97,11 +97,11 @@ services:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     command: filebeat -strict.perms=false
     volumes:
-      # filebeat conf
+      # Filebeat conf
       - ./filebeat/conf.d/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro,z
       # ingest logs
       - ./filebeat/logs:/var/elk/logs
-      # filebeat registry persistence
+      # Filebeat registry persistence
       - ./filebeat/data:/usr/share/filebeat/data/:rw
     environment:
       - TZ=Europe/Rome
