@@ -1,0 +1,19 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/elk/logs/*.log
+# scan options
+  scan_frequency: 10s
+  scan.order: asc
+  scan.sort: filename
+  ignore_older: 1m
+# limit harvester open files
+  close_inactive: 2m
+  close_removed: true
+# clean registry entries
+  clean_inactive: 2m
+  clean_removed: true
+
+output.logstash:
+  hosts: ["logstash:5044"] 

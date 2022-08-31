@@ -1,0 +1,7 @@
+# ignore all logs
+*.log
+
+# ignore filebeat registry
+filebeat/data/meta.json
+filebeat/data/filebeat.lock
+filebeat/data/registry/*
