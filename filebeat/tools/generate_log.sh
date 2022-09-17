@@ -6,18 +6,22 @@
 while getopts l:n: flag
 do
     case "${flag}" in
-        l) logname=${OPTARG};;
-        n) logrecords=${OPTARG};;
+        l) log_name=${OPTARG};;
+        n) log_records=${OPTARG};;
     esac
 done
 
-logpath="../logs/"
-logoutput=$logpath$logname\_$(date "+%Y%m%d-%H%M").log
+curr_date=$(date "+%Y%m%d-%H%M")
+log_path="../logs/"
+log_output=$log_path$log_name\_$curr_date.log
 
-for (( i=1; i<=$logrecords; i++ ))
+for (( i=1; i<=$log_records; i++ ))
 do
+	log_date=$(date "+%Y-%m-%d %H:%M:%S")
+	log_ip=$(printf "%d.%d.%d.%d\n" "$((RANDOM % 256))" "$((RANDOM % 256))" "$((RANDOM % 256))" "$((RANDOM % 256))")
+	log_message=$(openssl rand -base64 24)
 	echo "Writing record num: $i of $logrecords ."
-	echo "[ $(date "+%Y-%m-%d %H:%M:%S") ] -- Logname: $logname -- Message: $(openssl rand -base64 24)" >> $logoutput 
+	echo "[ $log_date ] -- Logname: $log_name -- IP: $log_ip -- Message: $log_message" >> $log_output 
 #	sleep 0.2
 done
 

@@ -1,8 +1,15 @@
+name: filebeat
+
 filebeat.inputs:
 - type: log
   enabled: true
   paths:
     - /var/elk/logs/*.log
+  processors:
+  - add_fields:
+      target: ''
+      fields:
+        log_type: "generic_log"
 # scan options
   scan_frequency: 10s
   scan.order: asc
@@ -14,6 +21,7 @@ filebeat.inputs:
 # clean registry entries
   clean_inactive: 2m
   clean_removed: true
+
 
 output.logstash:
   hosts: ["logstash:5044"] 
